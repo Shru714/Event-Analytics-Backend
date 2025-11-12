@@ -1,0 +1,44 @@
+services:
+  - type: web
+    name: analytics-backend
+    env: docker
+    region: oregon
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: analytics-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: analytics-redis
+          type: redis
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: API_KEY_SECRET
+        generateValue: true
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 100
+      - key: CACHE_TTL
+        value: 3600
+
+databases:
+  - name: analytics-db
+    databaseName: analytics_db
+    plan: starter
+    region: oregon
+
+services:
+  - type: redis
+    name: analytics-redis
+    plan: starter
+    region: oregon
+    maxmemoryPolicy: allkeys-lru
