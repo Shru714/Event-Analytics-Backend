@@ -1,0 +1,106 @@
+# Test API Endpoints
+# Use with REST Client extension in VS Code or any HTTP client
+
+### Variables
+@baseUrl = http://localhost:3000
+@token = YOUR_JWT_TOKEN_HERE
+@apiKey = YOUR_API_KEY_HERE
+@appId = YOUR_APP_ID_HERE
+
+### Health Check
+GET {{baseUrl}}/health
+
+### Register User
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "name": "Test User"
+}
+
+### Login User
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com"
+}
+
+### Create API Key
+POST {{baseUrl}}/api/keys
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "appId": "{{appId}}",
+  "name": "Test API Key",
+  "expiresInDays": 365
+}
+
+### List API Keys
+GET {{baseUrl}}/api/keys
+Authorization: Bearer {{token}}
+
+### Track Single Event
+POST {{baseUrl}}/api/events/track
+X-API-Key: {{apiKey}}
+Content-Type: application/json
+
+{
+  "eventType": "page_view",
+  "userId": "user123",
+  "sessionId": "session456",
+  "url": "https://example.com/products",
+  "referrer": "https://google.com",
+  "screenWidth": 1920,
+  "screenHeight": 1080,
+  "metadata": {
+    "page": "products",
+    "category": "electronics"
+  }
+}
+
+### Track Batch Events
+POST {{baseUrl}}/api/events/track/batch
+X-API-Key: {{apiKey}}
+Content-Type: application/json
+
+{
+  "events": [
+    {
+      "eventType": "button_click",
+      "userId": "user123",
+      "sessionId": "session456",
+      "url": "https://example.com/checkout",
+      "metadata": {"button": "add_to_cart"}
+    },
+    {
+      "eventType": "form_submit",
+      "userId": "user123",
+      "sessionId": "session456",
+      "url": "https://example.com/checkout",
+      "metadata": {"form": "payment"}
+    }
+  ]
+}
+
+### Get Event Summary
+GET {{baseUrl}}/api/analytics/events/summary?eventType=page_view
+Authorization: Bearer {{token}}
+
+### Get Event Timeline
+GET {{baseUrl}}/api/analytics/events/timeline?interval=day
+Authorization: Bearer {{token}}
+
+### Get User Analytics
+GET {{baseUrl}}/api/analytics/users/user123
+Authorization: Bearer {{token}}
+
+### Get App Overview
+GET {{baseUrl}}/api/analytics/apps/{{appId}}/overview
+Authorization: Bearer {{token}}
+
+### Revoke API Key
+DELETE {{baseUrl}}/api/keys/KEY_ID_HERE
+Authorization: Bearer {{token}}

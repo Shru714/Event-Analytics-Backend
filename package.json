@@ -9,7 +9,9 @@
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "migrate": "node src/database/migrate.js",
-    "seed": "node src/database/seed.js"
+    "seed": "node src/database/seed.js",
+    "postdeploy": "node scripts/deploy-render.js",
+    "build": "npm install && npm run postdeploy"
   },
   "keywords": ["analytics", "events", "api", "backend"],
   "author": "Shruti Teli",

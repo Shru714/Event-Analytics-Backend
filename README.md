@@ -2,6 +2,22 @@
 
 A scalable backend API for Website and Mobile App Analytics Platform that collects, processes, and aggregates user events with high throughput and cloud deployment support.
 
+## 🚀 Quick Start (5 Minutes)
+
+**Easiest way to get started** - No Docker or local database required!
+
+See [EASY_SETUP.md](EASY_SETUP.md) for step-by-step instructions using free cloud databases (Neon + Upstash).
+
+**Or with Docker:**
+```bash
+npm install
+docker-compose up -d
+npm run migrate
+npm start
+```
+
+**Windows without Docker?** See [WINDOWS_SETUP.md](WINDOWS_SETUP.md)
+
 ## Features
 
 ### API Key Management
@@ -74,48 +90,82 @@ A scalable backend API for Website and Mobile App Analytics Platform that collec
 
 ## Setup Instructions
 
+### Quick Start (Choose One)
+
+**Option A: With Docker (Recommended)**
+```bash
+npm install
+docker-compose up -d
+npm run migrate
+npm start
+```
+
+**Option B: Without Docker (Windows)**
+
+See [WINDOWS_SETUP.md](WINDOWS_SETUP.md) for detailed instructions.
+
+Quick steps:
+1. Install PostgreSQL locally or use a cloud database (Neon, Supabase)
+2. `npm install`
+3. `copy .env.example .env` and configure DATABASE_URL
+4. `npm run migrate`
+5. `npm start`
+
 ### Prerequisites
+
+**With Docker:**
 - Node.js 18+
-- Docker and Docker Compose
-- PostgreSQL 15+
-- Redis 7+
+- Docker Desktop
 
-### Local Development
+**Without Docker:**
+- Node.js 18+
+- PostgreSQL 15+ (local or cloud)
+- Redis (optional)
 
-1. Clone the repository
+### Detailed Setup
+
+1. **Clone and install**
 ```bash
 git clone <repository-url>
 cd unified-event-analytics-backend
-```
-
-2. Install dependencies
-```bash
 npm install
 ```
 
-3. Configure environment variables
+2. **Configure environment**
 ```bash
 cp .env.example .env
-# Edit .env with your configuration
+# Edit .env with your database credentials
 ```
 
-4. Start services with Docker Compose
+3. **Start database services**
+
+With Docker:
 ```bash
 docker-compose up -d
 ```
 
-5. Run database migrations
+Without Docker: See [WINDOWS_SETUP.md](WINDOWS_SETUP.md)
+
+4. **Run migrations**
 ```bash
 npm run migrate
 ```
 
-6. Start development server
+5. **Start server**
 ```bash
+npm start
+# Or for development:
 npm run dev
 ```
 
 The API will be available at `http://localhost:3000`
 API Documentation: `http://localhost:3000/api-docs`
+
+### Troubleshooting
+
+- **Database connection failed**: See [WINDOWS_SETUP.md](WINDOWS_SETUP.md)
+- **Docker not installed**: See [WINDOWS_SETUP.md](WINDOWS_SETUP.md) for non-Docker setup
+- **Port conflicts**: Change PORT in .env file
 
 ### Production Deployment
 

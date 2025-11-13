@@ -1,0 +1,56 @@
+{
+  "name": "Unified Event Analytics Backend",
+  "description": "Scalable backend API for Website and Mobile App Analytics Platform",
+  "repository": "https://github.com/your-username/unified-event-analytics-backend",
+  "logo": "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/analytics.svg",
+  "keywords": ["analytics", "events", "api", "backend", "nodejs", "postgresql", "redis"],
+  "success_url": "/health",
+  "scripts": {
+    "postdeploy": "npm run migrate"
+  },
+  "env": {
+    "NODE_ENV": {
+      "description": "Node environment",
+      "value": "production"
+    },
+    "JWT_SECRET": {
+      "description": "Secret key for JWT tokens (32+ characters)",
+      "generator": "secret"
+    },
+    "API_KEY_SECRET": {
+      "description": "Secret key for API key hashing (32+ characters)", 
+      "generator": "secret"
+    },
+    "RATE_LIMIT_WINDOW_MS": {
+      "description": "Rate limit window in milliseconds",
+      "value": "900000"
+    },
+    "RATE_LIMIT_MAX_REQUESTS": {
+      "description": "Maximum requests per window",
+      "value": "100"
+    },
+    "CACHE_TTL": {
+      "description": "Cache time-to-live in seconds",
+      "value": "3600"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini"
+    },
+    {
+      "plan": "heroku-redis:mini"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

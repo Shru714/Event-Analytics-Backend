@@ -4,8 +4,14 @@ const path = require('path');
 const { Pool } = require('pg');
 
 async function runMigrations() {
+  const isProduction = process.env.NODE_ENV === 'production';
+  
   const pool = new Pool({
-    connectionString: process.env.DATABASE_URL
+    connectionString: process.env.DATABASE_URL,
+    ssl: isProduction ? {
+      rejectUnauthorized: false,
+      require: true
+    } : false
   });
 
   try {

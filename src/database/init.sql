@@ -84,3 +84,4 @@ CREATE INDEX idx_apps_user_id ON apps(user_id);
 
 CREATE INDEX idx_aggregations_app_date ON event_aggregations(app_id, aggregation_date);
 CREATE INDEX idx_aggregations_app_event_date ON event_aggregations(app_id, event_type, aggregation_date);
+
