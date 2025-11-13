@@ -17,10 +17,7 @@ services:
           name: analytics-db
           property: connectionString
       - key: REDIS_URL
-        fromService:
-          name: analytics-redis
-          type: redis
-          property: connectionString
+        value: rediss://default:AUqpAAIncDI5NzJhYzkxYjI4MmU0YmQwODY3ZWJjMDM0NDcwNmQ5OHAyMTkxMTM@fun-fox-19113.upstash.io:6379
       - key: JWT_SECRET
         generateValue: true
       - key: API_KEY_SECRET
@@ -34,11 +31,7 @@ services:
       - key: CACHE_TTL
         value: 3600
 
-  - type: redis
-    name: analytics-redis
-    plan: free
-    region: oregon
-    maxmemoryPolicy: allkeys-lru
+  # Using Upstash Redis instead of private service
 
 databases:
   - name: analytics-db
