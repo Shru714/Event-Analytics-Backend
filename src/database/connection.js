@@ -4,16 +4,20 @@ let pool;
 
 async function connectDatabase() {
   const isProduction = process.env.NODE_ENV === 'production';
+  const isRender = process.env.RENDER || process.env.DATABASE_URL?.includes('render.com');
+  
+  // Configure SSL for production or Render deployments
+  const sslConfig = (isProduction || isRender) ? {
+    rejectUnauthorized: false,
+    require: true
+  } : false;
   
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     max: 20,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
-    ssl: isProduction ? {
-      rejectUnauthorized: false,
-      require: true
-    } : false
+    ssl: sslConfig
   });
 
   pool.on('error', (err) => {

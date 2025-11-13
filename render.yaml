@@ -25,6 +25,8 @@ services:
         generateValue: true
       - key: API_KEY_SECRET
         generateValue: true
+      - key: SESSION_SECRET
+        generateValue: true
       - key: RATE_LIMIT_WINDOW_MS
         value: 900000
       - key: RATE_LIMIT_MAX_REQUESTS
@@ -32,16 +34,15 @@ services:
       - key: CACHE_TTL
         value: 3600
 
+  - type: redis
+    name: analytics-redis
+    plan: free
+    region: oregon
+    maxmemoryPolicy: allkeys-lru
+
 databases:
   - name: analytics-db
     databaseName: analytics_db
     user: analytics_user
     plan: free
     region: oregon
-
-services:
-  - type: redis
-    name: analytics-redis
-    plan: free
-    region: oregon
-    maxmemoryPolicy: allkeys-lru
